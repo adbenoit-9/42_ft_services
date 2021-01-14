@@ -1,0 +1,11 @@
+Start a cluster:
+minikube Start
+
+Check if kubectl is installed;
+kubectl version
+
+View cluster details:
+kubectl cluster-info
+
+View the nodes (aka. esclaves) in the cluster:
+kubectl get nodes
