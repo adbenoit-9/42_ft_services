@@ -47,5 +47,4 @@ Do by K8s => check if spec desired (3) == spec actual
 
 syntax important (aka. indentation)
 
-https://www.youtube.com/watch?v=qmDzcu5uY1I&list=PLy7NrYWoggjwPggqtFsI_zMAwvG0SqYCb&index=20
-8min55
+https://www.youtube.com/watch?v=EQNO_kM96Mo&list=PLy7NrYWoggjwPggqtFsI_zMAwvG0SqYCb&index=21

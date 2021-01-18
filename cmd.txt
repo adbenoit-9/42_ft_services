@@ -2,6 +2,8 @@ Start a cluster:
 OS :
 brew install hyperkit
 minikube start --vm-driver=hyperkit
+or
+minikube start --vm-driver=docker
 VM :
 minikube start --vm-driver=docker
 
@@ -33,3 +35,12 @@ kubectl logs POD_NAME
 Create a config file :
 touch config-file.yaml => add config
 kubectl apply -f config-file.yaml
+
+(1) kubectl decribe service name-service
+(2) kubectl get pod -o wide
+
+Verify if is on the good port:
+compare entrypoint of (1) and the IP of (2)
+
+Get more info on the deployement: 
+kubectl get deployement name-deployement -o yaml > name-deployement-result.yaml
