@@ -1,5 +1,9 @@
 Start a cluster:
-minikube Start
+OS :
+brew install hyperkit
+minikube start --vm-driver=hyperkit
+VM :
+minikube start --vm-driver=docker
 
 Check if kubectl is installed;
 kubectl version
@@ -9,3 +13,23 @@ kubectl cluster-info
 
 View the nodes (aka. esclaves) in the cluster:
 kubectl get nodes
+
+kubectl get pod
+kubectl get services
+
+Create deployment:
+kubectl create deployment NAME --image=image
+ex: ubectl create deployment nginx-depl --image=nginx
+kubectl get pod
+
+kubectl get replicaset
+
+Edit deployment:
+kubectl edit deployment NAME
+=> config file
+
+kubectl logs POD_NAME
+
+Create a config file :
+touch config-file.yaml => add config
+kubectl apply -f config-file.yaml
