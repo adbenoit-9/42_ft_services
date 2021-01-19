@@ -21,7 +21,8 @@ Connect the inside of the house (= the room) with the external world (aka. Load 
 search metallb.yaml (tools)
 ![Example](img/intermarche.jpg)
 
-```$ kubectl apply -f metallb.yaml
-$ kubectl apply -f configmap.yaml```
-
+```
+$ kubectl apply -f metallb.yaml
+$ kubectl apply -f configmap.yaml
+```
 ![Example](img/door.png)
