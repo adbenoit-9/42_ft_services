@@ -1,5 +1,5 @@
 # :heart: Ft_services :heart:
-Welcome into my ft_services, if, like me, you are not familiar with the vocaculary of computing, you are in the good place. Here, I'll try to explain kubernetes with metaphore.
+Welcome into my ft_services, if, like me, you are not familiar with the vocaculary of computing, you are in the right place. Here, I'll try to explain kubernetes with metaphore.
 
 We are going to compare the cluster to a little cutie house that we'll try to build. :cherry_blossom:
 
