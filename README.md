@@ -8,6 +8,7 @@ Of course we gonna succeed, we are not goats !!!
 `$ minikube start [option]`
 
 ![Example](img/kube.png)
+
 In this project, we only need one cluster so one room in the house.
 
 ## Add a door
