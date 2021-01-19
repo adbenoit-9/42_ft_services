@@ -3,11 +3,11 @@ Here, we are going to compare K8s to a little cutie house that we'll try to buil
 
 Of course we gonna succeed, we are not goats !!!
 ## Kube construction
-![Example](img/start.jpg)
+![Example](img/start.png)
 
 `$ minikube start [option]`
 
-![Example](img/kube.jpg)
+![Example](img/kube.png)
 In this project, we only need one cluster so one room in the house.
 
 ## Add a door
@@ -19,7 +19,7 @@ Connect the inside of the house (= the room) with the external world (aka. Load 
 => Create a ConfigMap
 
 search metallb.yaml (tools)
-![Example](img/intermarche.jpg)
+![Example](img/intermarche.png)
 
 ```
 $ kubectl apply -f metallb.yaml
