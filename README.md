@@ -1,7 +1,7 @@
 # :heart: Ft_services :heart:
-Welcome into my ft_services, if, like me, you are not familiar with the vocaculary of computing, you are in the right place. Here, I'll try to explain ft_services with metaphors. But you need to already tried to understanding kubernetes, i only helping you to simplify your vision. You have to complete my steps with your own researches.
+Welcome into my ft_services, if, like me, you are not familiar with the vocaculary of computing, you are in the right place. Here, I'll try to explain ft_services with metaphors. But you need to have already tried to understanding kubernetes, i only helping you to simplify your vision. You have to complete my steps with your own researches.
 
-We are going to compare the cluster to a little cutie house that we'll try to build. :cherry_blossom:
+So, we are going to compare the cluster to a little cutie house that we'll try to build. :cherry_blossom:
 
 Try ? OF COURSE WE WILL SUCCEED, WE ARE NOT STUPID GOATS !!!
 ## Kube construction
