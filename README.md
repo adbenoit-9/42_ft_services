@@ -16,6 +16,6 @@ Connect the inside of the house (= the room) with the external world (aka. Load 
 - position & size (aka. adresses range)
 
 search metallb.yaml (tools)
-![Example](img/internetmarche.jpg)
+![Example](img/intermarche.jpg)
 
 ![Example](img/door.jpg)
