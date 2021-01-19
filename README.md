@@ -14,8 +14,12 @@ Connect the inside of the house (= the room) with the external world (aka. Load 
 ### Needed
 - place of tools (aka. namespace)
 - position & size (aka. adresses range)
+=> Create a ConfigMap
 
 search metallb.yaml (tools)
 ![Example](img/intermarche.jpg)
+
+`kubectl apply -f metallb.yaml`
+`kubectl apply -f configmap.yaml`
 
 ![Example](img/door.jpg)
