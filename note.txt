@@ -18,7 +18,7 @@ Application :
 	- ConfigMap : external config of the application
 	- db, user, pwd
 
-Ingress : handles every incoming request (=> from the user). protect
+MetalLB : handles every incoming request (=> from the user) => load balancer
   ||
   \/
 Service :

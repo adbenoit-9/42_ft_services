@@ -28,7 +28,7 @@ spec:
 			-	name: name_app
 				image:
 				ports:
-				-	containerPort:
+				-	containerPort: (search in docker hub)
 	labels:
 		app: name_app
 # Service
