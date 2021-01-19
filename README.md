@@ -7,7 +7,8 @@ Try ? OF COURSE WE WILL SUCCEED, WE ARE NOT STUPID GOATS !!!
 ## Kube construction
 ![Example](img/start.png)
 
-obvious command: (if you already need explanation ... :poop)
+obvious command: (if you already need explanation ... :poop:)
+
 `$ minikube start [option]`
 
 ![Example](img/kube.png)
