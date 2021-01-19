@@ -29,4 +29,4 @@ $ kubectl apply -f configmap.yaml
 ## Arrange the rooms
 (aka. nodes)
 
-Every room has it's own function (aka. service) => kitchen, living room, etc ... 
+Every room has it's own function (aka. service) => kitchen, living room, etc ... :bath:
