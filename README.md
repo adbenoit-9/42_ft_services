@@ -1,29 +1,32 @@
 # :heart: Ft_services :heart:
-Here, we are going to compare K8s to a little cutie house that we'll try to build.
+Here, we are going to compare cluster to a little cutie house that we'll try to build.
 
-Of course we gonna succeed, we are not goats !!!
+Of course we gonna succeed, we are not stupids goats !!!
 ## Kube construction
 ![Example](img/start.png)
 
+obvious command: 
 `$ minikube start [option]`
 
 ![Example](img/kube.png)
 
-In this project, we only need one cluster so one room in the house.
-
 ## Add a door
+(aka. Load Balancer)
 ### Goal
-Connect the inside of the house (= the room) with the external world (aka. Load Balancer)
-### Needed
-- place of tools (aka. namespace)
-- position & size (aka. adresses range)
-=> Create a ConfigMap
-
-search metallb.yaml (tools)
+Connect the inside of the house to the external world.
+### Needed (aka. ConfigMap)
+- protocole : according to the utility of a door (= connecting the differents rooms of a house to the outside), we'll use the protocole layer2 to create the door. If you don't understanding why :
 ![Example](img/intermarche.png)
+- tools : OMG but how can i know where i can find the tools needed ?? :cry: CALM DOWN !!! I'm not sure yet but for the momemt you just need to find in the beautyful internetmarche how to install metallb and check the place (aka. namespace) in the config file 
+- choose the position & the size of the door (aka. adresses range)
 
 ```
 $ kubectl apply -f metallb.yaml
 $ kubectl apply -f configmap.yaml
 ```
 ![Example](img/door.png)
+
+## Arrange the rooms
+(aka. nodes)
+
+Every room has in own purpose (aka. service) => kitchen, living room, etc ...
