@@ -1,0 +1,2 @@
+minikube start
+bash
