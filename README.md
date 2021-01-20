@@ -30,6 +30,9 @@ $ kubectl apply -f configmap.yaml
 ![Example](img/door.png)
 
 ## Arrange the rooms
-(aka. nodes)
+(aka. pods = rich containers :money_mouth_face: What did i mean ? Obviously, only poor don't have an assurance => if you destroy a pod, it will be restart automaticaly)
 
 Every room has it's own function (aka. service) => kitchen, living room, etc ... :bath:
+
+### 
+- 
