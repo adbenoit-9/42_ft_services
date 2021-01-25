@@ -38,3 +38,31 @@ Replicate node:
 	- replicate app => Deployement = change replicas in ConfigMap (ex : replicas = 2)
 	- replicate DB  => StatefulSet => replicate the pods ++ (more complicated than deployement)
 
+
+
+# Afficher la liste des Services
+kubectl get service [En option <SERVICE NAME>]
+
+# Créer un Service depuis un template
+kubectl create -f <template.yaml>
+
+# Créer un Service depuis sans template
+kubectl expose deployment <DEPLOYMENT NAME>
+    --name : nom du service
+    --type : type du service
+    --protocol : protocole à utiliser (TCP/UDP) 
+    --port : port utilisé par le service 
+    --target-port : port utilisé utilisé par le Pod 
+    --selector='clé=valeur': le sélecteur utilisé par service 
+
+# Supprimer un Service
+kubectl delete service <SERVICE NAME>
+
+# Appliquer des nouveaux changements à votre Service sans le détruire
+kubectl apply -f <template.yaml>
+
+# Modifier et appliquer les changements de votre Service instantanément sans le détruire
+kubectl edit service <SERVICE NAME>
+
+# Afficher les détails d'un Service
+kubectl describe service <SERVICE NAME>

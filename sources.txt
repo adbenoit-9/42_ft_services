@@ -1,0 +1,4 @@
+https://blog.zwindler.fr/2018/03/06/exposer-des-applications-kubernetes-en-dehors-des-cloud-providers-nginx-ingress-controller/
+https://devopssec.fr/article/gerer-manipuler-services-kubernetes
+
+https://raw.githubusercontent.com/google/metallb/v0.7.3/manifests/metallb.yaml

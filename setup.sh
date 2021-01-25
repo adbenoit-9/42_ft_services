@@ -1,4 +1,4 @@
-#!bin/bash
+#!/bin/bash
 
 minikube delete
 echo '\033[1;33mminikube: \033[1;39mdeleted\033[0m'
@@ -11,10 +11,9 @@ kubectl apply -f srcs/metallb/metallb.yaml
 kubectl apply -f srcs/metallb/metallb-configmap.yaml
 echo '\033[34mLoad Balancer \033[0m[\033[32mOK\033[0m]'
 
-# cd srcs/nginx/
-# sh run.sh
-# kubectl apply -f nginx.yaml
-# cd ../
+service nginx stop
+kubectl apply -f srcs/nginx/nginx.yaml
+docker build -t nginx_im srcs/nginx
 
 # cd mysql/
 # sh run.sh

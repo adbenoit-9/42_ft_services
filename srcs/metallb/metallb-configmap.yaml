@@ -3,6 +3,8 @@ kind: ConfigMap
 metadata:
   namespace: metallb-system
   name: metallb-config
+  annotation:
+    metallb.universe.tf/allow-shared-ip: ft_services
 data:
   config: |
     address-pools:
