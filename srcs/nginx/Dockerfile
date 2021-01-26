@@ -6,7 +6,7 @@
 #    By: user42 <user42@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/01/20 12:49:16 by user42            #+#    #+#              #
-#    Updated: 2021/01/25 15:55:53 by user42           ###   ########.fr        #
+#    Updated: 2021/01/26 15:34:48 by user42           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,13 +14,13 @@ FROM alpine:3.7
 
 RUN apk update && \
     apk add nginx \
-    openssl
+    openssh
 
 COPY ./default /etc/nginx/sites-available/
 COPY ./nginx.conf /etc/nginx/
 
 EXPOSE 80 443
 
-# ENTRYPOINT  bash
-            # service nginx start \
-            # && echo '\033[34mNginx \033[0m[\033[32mOK\033[0m]'
+CMD ["nginx", "-g", "daemon off;"];
+# can't use the cmd "service" it will run nginx in the background and then exit => container will stop
+

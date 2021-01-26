@@ -12,8 +12,8 @@ kubectl apply -f srcs/metallb/metallb-configmap.yaml
 echo '\033[34mLoad Balancer \033[0m[\033[32mOK\033[0m]'
 
 service nginx stop
-kubectl apply -f srcs/nginx/nginx.yaml
 docker build -t nginx_im srcs/nginx
+kubectl apply -f srcs/nginx/nginx.yaml
 
 # cd mysql/
 # sh run.sh
