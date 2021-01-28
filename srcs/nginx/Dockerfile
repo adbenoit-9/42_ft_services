@@ -6,7 +6,7 @@
 #    By: user42 <user42@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/01/20 12:49:16 by user42            #+#    #+#              #
-#    Updated: 2021/01/26 17:25:56 by user42           ###   ########.fr        #
+#    Updated: 2021/01/28 14:25:41 by user42           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,5 +23,3 @@ EXPOSE 80 443
 
 CMD ["nginx", "-g", "daemon off;"];
 # can't use the cmd "service" it will run nginx in the background and then exit => container will stop
-
-# https://archivengines.wordpress.com/2017/06/16/juste-un-tutoriel-docker/
