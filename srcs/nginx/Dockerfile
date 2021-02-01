@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Dockerfile                                         :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: user42 <user42@student.42.fr>              +#+  +:+       +#+         #
+#    By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/01/20 12:49:16 by user42            #+#    #+#              #
-#    Updated: 2021/02/01 11:30:35 by user42           ###   ########.fr        #
+#    Updated: 2021/02/01 13:26:25 by adbenoit         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,4 +28,5 @@ RUN openssl req -x509 -out etc/nginx/localhost.crt \
 EXPOSE 80 443
 
 CMD ["nginx", "-g", "daemon off;"];
-# can't use the cmd "service" it will run nginx in the background and then exit => container will stop
+# can't use the cmd "service" it will run nginx in the background and then exit 
+# => container will stop

@@ -1,12 +1,18 @@
 #!/bin/bash
 
+# sh init_docker.sh
+# sleep 60
 # docker container stop $(docker container ls -aq)
 # docker container rm $(docker container ls -aq)
-# docker rmi -f $(docker images -a -q)
+# docker rmi -f $(docker image ls -a -q)
 
+# minikube config set vm-driver virtualbox
 minikube delete
-echo '\033[1;33mminikube: \033[1;39mdeleted\033[0m'
-minikube start --vm-driver=docker
+# docker-machine create --driver virtualbox default
+# docker-machine start
+# minikube start --vm-driver=virtualbox
+
+minikube start --driver=docker
 echo '\033[1;33mminikube: \033[1;39mstarted [\033[1;32mOK\033[1;39m]\033[0m'
 
 minikube addons enable dashboard

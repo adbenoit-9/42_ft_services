@@ -11,15 +11,6 @@ server {
 
     location / {
         try_files $uri $uri/ =404;
-    
-    }
-
-    location ~ \.php$ {
-        include snippets/fastcgi-php.conf;
-        fastcgi_pass unix:/run/php/php7.3-fpm.sock;
-    }
-
-    location ~ /\.ht {
-        deny all;
+        return 301 https://$host$request_uri/;
     }
 }
