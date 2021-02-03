@@ -1,6 +1,7 @@
 #!/bin/bash
 
 # sh init_docker.sh
+# sudo usermod -aG docker user42; newgrp dock
 # sleep 60
 # docker container stop $(docker container ls -aq)
 # docker container rm $(docker container ls -aq)
@@ -27,7 +28,7 @@ eval $(minikube docker-env)
 service nginx stop
 docker build -t nginx_im srcs/nginx
 kubectl apply -f srcs/nginx/nginx.yaml
-# eval $(minikube docker-env -u)
+eval $(minikube docker-env -u)
 
 # cd mysql/
 # sh run.sh

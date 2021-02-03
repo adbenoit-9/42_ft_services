@@ -27,6 +27,7 @@ RUN openssl req -x509 -out etc/nginx/localhost.crt \
 
 EXPOSE 80 443
 
-CMD ["nginx", "-g", "daemon off;"];
+CMD ["bash"]
+# CMD ["nginx", "-g", "daemon off;"];
 # can't use the cmd "service" it will run nginx in the background and then exit 
 # => container will stop

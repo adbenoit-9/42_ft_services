@@ -11,6 +11,9 @@ server {
 
     location / {
         try_files $uri $uri/ =404;
-        return 301 https://$host$request_uri/;
+    
+    }
+    location ~ /\.ht {
+        deny all;
     }
 }
