@@ -1,34 +1,66 @@
 #!/bin/bash
 
 # sh init_docker.sh
-# sudo usermod -aG docker user42; newgrp dock
+# sudo usermod -aG docker user42; newgrp docker
 # sleep 60
 # docker container stop $(docker container ls -aq)
 # docker container rm $(docker container ls -aq)
 # docker rmi -f $(docker image ls -a -q)
 
 # minikube config set vm-driver virtualbox
-minikube delete
+
 # docker-machine create --driver virtualbox default
 # docker-machine start
 # minikube start --vm-driver=virtualbox
 
-minikube start --vm-driver=docker
-echo '\033[1;33mminikube: \033[1;39mstarted [\033[1;32mOK\033[1;39m]\033[0m'
+start_service()
+{
+    docker build -t $1_im srcs/$1
+    kubectl apply -f srcs/$1/$1.yaml
+}
 
-minikube addons enable dashboard
-minikube addons enable metrics-server
+start_project()
+{
+    sudo usermod -aG docker user42; newgrp docker
+    minikube start --vm-driver=docker
+    if [ $? -ne 0 ]
+    then
+        echo '\033[1;33mminikube: \033[1;39mstarted [\033[1;31mKO\033[1;39m]\033[0m\nexit'
+        exit 1
+    fi
+    echo '\033[1;33mminikube: \033[1;39mstarted [\033[1;32mOK\033[1;39m]\033[0m'
+    minikube addons enable dashboard
+    minikube addons enable metrics-server
+    minikube addons enable metallb 
+    if [ $? -ne 0 ]
+    then
+        kubectl apply -f srcs/metallb/metallb.yaml
+    fi
+    kubectl apply -f srcs/metallb/metallb-configmap.yaml
+    echo '\033[34mLoad Balancer \033[0m[\033[32mOK\033[0m]'
+    eval $(minikube docker-env)
+    sudo service nginx stop
+    echo user42
+    start_service nginx
+    # eval $(minikube docker-env -u)
+}
 
-kubectl apply -f srcs/metallb/metallb.yaml
-kubectl apply -f srcs/metallb/metallb-configmap.yaml
-echo '\033[34mLoad Balancer \033[0m[\033[32mOK\033[0m]'
+clean_project()
+{
+    eval $(minikube docker-env -u)
+    minikube delete
+    docker rmi -f $(docker image ls -a -q)
+}
 
-
-eval $(minikube docker-env)
-echo user42 | sudo service nginx stop
-docker build -t nginx_im srcs/nginx
-kubectl apply -f srcs/nginx/nginx.yaml
-eval $(minikube docker-env -u)
+if [ $1 -eq "restart"]
+then
+    echo "\033[1;39m$2 restarting ... \033[0m"
+    if [$2 -eq "minikube"]
+    then
+        clean_project
+        start_project
+    
+fi
 
 # cd mysql/
 # sh run.sh
