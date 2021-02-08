@@ -13,7 +13,7 @@ minikube delete
 # docker-machine start
 # minikube start --vm-driver=virtualbox
 
-minikube start --driver=docker
+minikube start --vm-driver=docker
 echo '\033[1;33mminikube: \033[1;39mstarted [\033[1;32mOK\033[1;39m]\033[0m'
 
 minikube addons enable dashboard
@@ -25,7 +25,7 @@ echo '\033[34mLoad Balancer \033[0m[\033[32mOK\033[0m]'
 
 
 eval $(minikube docker-env)
-service nginx stop
+echo user42 | sudo service nginx stop
 docker build -t nginx_im srcs/nginx
 kubectl apply -f srcs/nginx/nginx.yaml
 eval $(minikube docker-env -u)
