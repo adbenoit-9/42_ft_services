@@ -21,8 +21,7 @@ COPY ./nginx.conf /etc/nginx/
 
 RUN openssl req -x509 -out etc/nginx/nginx.crt \
         -keyout etc/nginx/nginx.key -newkey rsa:2048 -nodes -sha256 \
-        -subj '/CN=nginx' \
-    && echo '[ \033[32mok\033[0m ] Generating a RSA private key'
+        -subj '/CN=nginx' 
 
 RUN mkdir -p /run/nginx
 

@@ -16,12 +16,15 @@
 start_service()
 {
     docker build -t $1_im srcs/$1
-    kubectl apply -f srcs/$1/$1.yaml
+    if [ $? -ne 0 ]
+        kubectl apply -f srcs/$1/$1.yaml
+    if [ $? -ne 0 ]
+        echo "\033[34m$1 \033[0m[\033[32mOK\033[0m]"
 }
 
 start_project()
 {
-    sudo usermod -aG docker user42; newgrp docker
+    # sudo usermod -aG docker user42; newgrp docker
     minikube start --vm-driver=docker
     if [ $? -ne 0 ]
     then
@@ -55,7 +58,23 @@ clean_project()
 {
     eval $(minikube docker-env -u)
     minikube delete
+    docker container stop $(docker container ls -aq)
+    docker container rm $(docker container ls -aq)
     docker rmi -f $(docker image ls -a -q)
+}
+
+clean_all()
+{
+    kubectl delete -f srcs/metallb/metallb-configmap.yaml
+    clean_service nginx
+    clean_service mysql
+}
+
+start_all()
+{
+    kubectl apply -f srcs/metallb/metallb-configmap.yaml
+    start_service nginx
+    start_service mysql
 }
 
 restart_it()
@@ -66,10 +85,8 @@ restart_it()
         start_project
     elif [ $1 = "all" ]
         then
-        kubectl delete -f srcs/metallb/metallb-configmap.yaml
-        clean_service nginx
-        kubectl apply -f srcs/metallb/metallb-configmap.yaml
-        start_service nginx
+        clean_all
+        start_all
     elif [ $1 -ne 0 ]
         then
         clean_service $1
