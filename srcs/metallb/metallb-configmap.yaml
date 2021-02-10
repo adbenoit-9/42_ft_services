@@ -6,7 +6,7 @@ metadata:
 data:
   config: |
     address-pools:
-    - name: default
+    - name: test
       protocol: layer2
       addresses:
       - 192.168.49.2-192.168.49.20

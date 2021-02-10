@@ -12,13 +12,8 @@
 
 FROM alpine:latest
 
-ENV ROOT=/var/www/html
+RUN mysql mysql-client
 
-COPY latest.tar.gz /tmp/
+EXPOSE 3306
 
-RUN tar -xzvf /tmp/latest.tar.gz -C $ROOT/ \
-    && chown -R www-data:www-data $ROOT/wordpress
-
-EXPOSE 5050
-
-ENTRYPOINT echo '\033[34mWorpress \033[0m[\033[32mOK\033[0m]'
+CMD ["sh", "run.sh"]

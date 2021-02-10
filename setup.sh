@@ -16,10 +16,14 @@
 start_service()
 {
     docker build -t $1_im srcs/$1
-    if [ $? -ne 0 ]
+    if [ $? -eq 0 ]
+    then
         kubectl apply -f srcs/$1/$1.yaml
-    if [ $? -ne 0 ]
+    fi
+    if [ $? -eq 0 ]
+    then
         echo "\033[34m$1 \033[0m[\033[32mOK\033[0m]"
+    fi
 }
 
 start_project()
@@ -34,11 +38,11 @@ start_project()
     echo '\033[1;33mminikube: \033[1;39mstarted [\033[1;32mOK\033[1;39m]\033[0m'
     minikube addons enable dashboard
     minikube addons enable metrics-server
-    minikube addons enable metallb 
-    if [ $? -ne 0 ]
-    then
+    # minikube addons enable metallb 
+    # if [ $? -ne 0 ]
+    # then
         kubectl apply -f srcs/metallb/metallb.yaml
-    fi
+    # fi
     kubectl apply -f srcs/metallb/metallb-configmap.yaml
     echo '\033[34mLoad Balancer \033[0m[\033[32mOK\033[0m]'
     eval $(minikube docker-env)
