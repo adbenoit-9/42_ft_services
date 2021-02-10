@@ -46,9 +46,10 @@ start_project()
     kubectl apply -f srcs/metallb/metallb-configmap.yaml
     echo '\033[34mLoad Balancer \033[0m[\033[32mOK\033[0m]'
     eval $(minikube docker-env)
-    sudo service nginx stop
+    # sudo service nginx stop
     echo user42
     start_service nginx
+    start_service mysql
     # eval $(minikube docker-env -u)
 }
 
