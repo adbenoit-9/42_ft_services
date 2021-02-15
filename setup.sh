@@ -19,10 +19,15 @@ start_service()
     if [ $? -eq 0 ]
     then
         kubectl apply -f srcs/$1/$1.yaml
+    else
+        echo "\033[34m$1 \033[0m[\033[31mKO\033[0m]"
+        exit 1
     fi
     if [ $? -eq 0 ]
     then
         echo "\033[34m$1 \033[0m[\033[32mOK\033[0m]"
+    else
+        echo "\033[34m$1 \033[0m[\033[31mKO\033[0m]"
     fi
 }
 
@@ -47,9 +52,8 @@ start_project()
     echo '\033[34mLoad Balancer \033[0m[\033[32mOK\033[0m]'
     eval $(minikube docker-env)
     # sudo service nginx stop
-    echo user42
     start_service nginx
-    start_service mysql
+    # start_service mysql
     # eval $(minikube docker-env -u)
 }
 
@@ -72,18 +76,19 @@ clean_all()
 {
     kubectl delete -f srcs/metallb/metallb-configmap.yaml
     clean_service nginx
-    clean_service mysql
+    # clean_service mysql
 }
 
 start_all()
 {
     kubectl apply -f srcs/metallb/metallb-configmap.yaml
     start_service nginx
-    start_service mysql
+    # start_service mysql
 }
 
 restart_it()
 {
+    # eval $(minikube docker-env)
     if [ $1 = "minikube" ]
         then
         clean_project
@@ -92,7 +97,7 @@ restart_it()
         then
         clean_all
         start_all
-    elif [ $1 -ne 0 ]
+    elif [ $1 != "0" ]
         then
         clean_service $1
         start_service $1
@@ -109,9 +114,9 @@ clean_it()
     elif [ $1 = "minikube" ]
         then
         clean_project
-    elif [ $# -ne 1 ]
+    elif [ $1 != "" ]
         then
-        clean_service $?
+        clean_service $1
     else
         echo "clean: $1: no such service"
     fi
