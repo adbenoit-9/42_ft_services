@@ -1,13 +1,15 @@
-apiVersion: v1
-kind: Service
+apiVersion: v1 # creating a volume for mysql
+kind: PersistentVolumeClaim
 metadata:
-  name: mysql
-spec:
-  ports:
-  - port: 3306
-  selector:
+  name: mysql-pv-claim
+  labels:
     app: mysql
-  clusterIP: None
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 2Gi
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -19,25 +21,42 @@ spec:
       app: mysql
   strategy:
     type: Recreate
+  replicas: 1
   template:
     metadata:
       labels:
         app: mysql
     spec:
       containers:
-      - image: mysql_im
-        name: mysql
-        env:
-          # Use secret in real usage
-        - name: MYSQL_ROOT_PASSWORD
-          value: password
+      - name: mysql
+        image: mysql_im
+        imagePullPolicy: Never
+        livenessProbe:
+          exec:
+            command:
+            - /bin/ash
+            - -c
+            - 'pgrep mysqld'
+          initialDelaySeconds: 3
+          periodSeconds: 3
         ports:
         - containerPort: 3306
-          name: mysql
         volumeMounts:
-        - name: mysql-persistent-storage
+        - name: mysql-persistent-storage # using volume to save datas if pod crashes
           mountPath: /var/lib/mysql
       volumes:
       - name: mysql-persistent-storage
         persistentVolumeClaim:
           claimName: mysql-pv-claim
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mysql-service
+  spec:
+  selector:
+    app: mysql
+  ports:
+    - port: 3306
+      targetPort: 3306
+      protocol: TCP

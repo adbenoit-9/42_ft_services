@@ -15,6 +15,7 @@
 
 start_service()
 {
+    eval $(minikube docker-env)
     docker build -t $1_im srcs/$1
     if [ $? -eq 0 ]
     then
@@ -29,6 +30,7 @@ start_service()
     else
         echo "\033[34m$1 \033[0m[\033[31mKO\033[0m]"
     fi
+    eval $(minikube docker-env -u)
 }
 
 start_project()
@@ -50,7 +52,6 @@ start_project()
     # fi
     kubectl apply -f srcs/metallb/metallb-configmap.yaml
     echo '\033[34mLoad Balancer \033[0m[\033[32mOK\033[0m]'
-    eval $(minikube docker-env)
     # sudo service nginx stop
     start_service nginx
     # start_service mysql
@@ -65,7 +66,6 @@ clean_service()
 
 clean_project()
 {
-    eval $(minikube docker-env -u)
     minikube delete
     docker container stop $(docker container ls -aq)
     docker container rm $(docker container ls -aq)

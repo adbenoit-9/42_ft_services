@@ -12,8 +12,14 @@
 
 FROM alpine:latest
 
-RUN mysql mysql-client
+RUN apk add mariadb mariadb-client
 
-EXPOSE 3306
+COPY start.sh .
 
-CMD ["sh", "run.sh"]
+COPY mariadb-server.cnf /etc/my.cnf.d/
+
+RUN chmod 777 start.sh \
+    && mkdir -p /run/mysqld \
+    && chown mysql /var/lib/mysql
+
+ENTRYPOINT sh start.sh
