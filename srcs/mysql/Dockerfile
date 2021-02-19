@@ -17,6 +17,7 @@ RUN apk add mariadb mariadb-client
 COPY start.sh .
 
 COPY mariadb-server.cnf /etc/my.cnf.d/
+COPY config.sql .
 
 RUN chmod 777 start.sh \
     && mkdir -p /run/mysqld \

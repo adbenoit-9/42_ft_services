@@ -3,7 +3,7 @@ kind: Service
 metadata:
   name: nginx
   annotations:
-    metallb.universe.tf/allow-shared-ip: defaultl
+    metallb.universe.tf/allow-shared-ip: default
 spec:
   selector:
     app: nginx

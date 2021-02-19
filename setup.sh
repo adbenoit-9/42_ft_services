@@ -54,14 +54,16 @@ start_project()
     echo '\033[34mLoad Balancer \033[0m[\033[32mOK\033[0m]'
     # sudo service nginx stop
     start_service nginx
-    # start_service mysql
-    # eval $(minikube docker-env -u)
+    start_service mysql
+    start_service phpmyadmin
 }
 
 clean_service()
 {
+    eval $(minikube docker-env)
     docker image rm -f $1_im
     kubectl delete -f srcs/$1/$1.yaml
+    eval $(minikube docker-env -u)
 }
 
 clean_project()
@@ -76,14 +78,16 @@ clean_all()
 {
     kubectl delete -f srcs/metallb/metallb-configmap.yaml
     clean_service nginx
-    # clean_service mysql
+    clean_service mysql
+    clean_service phpmyadmin
 }
 
 start_all()
 {
     kubectl apply -f srcs/metallb/metallb-configmap.yaml
     start_service nginx
-    # start_service mysql
+    start_service mysql
+    start_service phpmyadmin
 }
 
 restart_it()
@@ -97,7 +101,7 @@ restart_it()
         then
         clean_all
         start_all
-    elif [ $1 != "0" ]
+    elif [ $1 != "" ]
         then
         clean_service $1
         start_service $1
@@ -157,32 +161,3 @@ else
     echo "      - start [arg]"
     echo "      - restart [arg]"
 fi
-
-# cd mysql/
-# sh run.sh
-# kubectl apply -f mysql.yaml
-# cd ../
-
-# cd phpmyadmin/
-# sh run.sh
-# kubectl apply -f phpmyadmin.yaml
-# cd ../
-
-# cd wordpress/
-# sh run.sh
-# kubectl apply -f wordpress.yaml
-# cd ../
-
-# cd ftps/
-# sh run.sh
-# kubectl apply -f ftps.yaml
-# cd ../
-
-# cd grafana/
-# sh run.sh
-# kubectl apply -f grafana.yaml
-# cd ../../
-
-# kubectl apply -f src/dashboard.yaml
-# echo '\033[34mDashboard \033[0m[\033[32mOK\033[0m]'
-# kubectl proxy
