@@ -54,6 +54,7 @@ RUN mkdir -p /usr/share/webapps/ \
     && chmod -R 777 /usr/share/webapps/ \
     && ln -s /usr/share/webapps/phpmyadmin/ /var/www/localhost/htdocs/phpmyadmin
 
+COPY config.sample.inc.php var/www/localhost/htdocs/phpmyadmin/
 EXPOSE 5000
 
 ENTRYPOINT sh start.sh
