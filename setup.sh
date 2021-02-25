@@ -56,6 +56,7 @@ start_project()
     start_service nginx
     start_service mysql
     start_service phpmyadmin
+    start_service wordpress
 }
 
 clean_service()
@@ -80,6 +81,7 @@ clean_all()
     clean_service nginx
     clean_service mysql
     clean_service phpmyadmin
+    clean_service wordpress
 }
 
 start_all()
@@ -88,6 +90,7 @@ start_all()
     start_service nginx
     start_service mysql
     start_service phpmyadmin
+    start_service wordpress
 }
 
 restart_it()

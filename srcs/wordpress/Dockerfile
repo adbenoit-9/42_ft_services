@@ -12,12 +12,7 @@
 
 FROM alpine:latest
 
-ENV APP=/usr/share/webapps \
-    TERM="xterm" \
-    DB_HOST="198.168.49.2" \
-    DB_NAME="ft_services" \
-    DB_USER="user42"\
-    DB_PASS="user42"
+ENV ROOT=/usr/share/webapps
 
 RUN apk update && \
     apk add nginx \
@@ -52,18 +47,20 @@ RUN apk update && \
 COPY start.sh .
 COPY ./nginx.conf /etc/nginx/
 
-RUN mkdir -p $APP/ \
+RUN mkdir -p $ROOT/ \
     && mkdir -p /run/nginx \
-    # && cd $APP/ \
-    && curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar \
-    && chmod +x wp-cli.phar \
-    && mv wp-cli.phar /usr/bin/wp-cli \
-    && chown nginx:nginx /usr/bin/wp-cli
-    # && wget http://wordpress.org/latest.tar.gz \
-    # && tar -xzvf latest.tar.gz \
-    # && rm latest.tar.gz
-#     && chown -R lighttpd $APP/ \
-    # && ln -s $APP/wordpress/ /var/www/localhost/htdocs/wordpress
+    && cd $ROOT/ \
+    # && curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar \
+    # && chmod +x wp-cli.phar \
+    # && mv wp-cli.phar /usr/bin/wp-cli \
+    # && chown nginx:nginx /usr/bin/wp-cli
+    && wget http://wordpress.org/latest.tar.gz \
+    && tar -xzvf latest.tar.gz \
+    && rm latest.tar.gz \
+    && chown -R nginx $ROOT/ \
+    && ln -s $ROOT/wordpress/ /var/www/localhost/htdocs/wordpress
+
+COPY wp-config-sample.php $ROOT/wordpress/
 
 EXPOSE 5050
 
