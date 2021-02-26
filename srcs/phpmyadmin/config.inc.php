@@ -15,7 +15,7 @@ declare(strict_types=1);
  * This is needed for cookie based authentication to encrypt password in
  * cookie. Needs to be 32 chars long.
  */
-$cfg['blowfish_secret'] = ''; /* YOU MUST FILL IN THIS FOR COOKIE AUTH! */
+$cfg['blowfish_secret'] = 'kjsfdhffbskfbsfkbsfjn'; /* YOU MUST FILL IN THIS FOR COOKIE AUTH! */
 
 /**
  * Servers configuration
@@ -57,7 +57,8 @@ $cfg['Servers'][$i]['AllowNoPassword'] = false;
 // $cfg['Servers'][$i]['userconfig'] = 'pma__userconfig';
 // $cfg['Servers'][$i]['recent'] = 'pma__recent';
 // $cfg['Servers'][$i]['favorite'] = 'pma__favorite';
-// $cfg['Servers'][$i]['users'] = 'pma__users';
+// $cfg['Servers'][$i]['users'] = 'user42';
+// $cfg['Servers'][$i]['password'] = 'user42';
 // $cfg['Servers'][$i]['usergroups'] = 'pma__usergroups';
 // $cfg['Servers'][$i]['navigationhiding'] = 'pma__navigationhiding';
 // $cfg['Servers'][$i]['savedsearches'] = 'pma__savedsearches';

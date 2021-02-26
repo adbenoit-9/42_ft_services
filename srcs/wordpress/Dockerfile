@@ -46,21 +46,17 @@ RUN apk update && \
 
 COPY start.sh .
 COPY ./nginx.conf /etc/nginx/
+COPY wp-config.php $ROOT/wordpress/
 
 RUN mkdir -p $ROOT/ \
     && mkdir -p /run/nginx \
     && cd $ROOT/ \
-    # && curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar \
-    # && chmod +x wp-cli.phar \
-    # && mv wp-cli.phar /usr/bin/wp-cli \
-    # && chown nginx:nginx /usr/bin/wp-cli
     && wget http://wordpress.org/latest.tar.gz \
     && tar -xzvf latest.tar.gz \
     && rm latest.tar.gz \
-    && chown -R nginx $ROOT/ \
-    && ln -s $ROOT/wordpress/ /var/www/localhost/htdocs/wordpress
-
-COPY wp-config-sample.php $ROOT/wordpress/
+    && chown -R nginx $ROOT/ 
+    # && sed -i "s/listen = 127.0.0.1:9000/listen = \/run\/php\/php-fpm7.sock/" /etc/php7/php-fpm.d/www.conf
+    # && ln -s $ROOT/wordpress/ /var/www/localhost/htdocs/wordpress
 
 EXPOSE 5050
 

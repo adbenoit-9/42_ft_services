@@ -43,6 +43,7 @@ RUN apk update && \
 
 COPY start.sh .
 COPY ./nginx.conf /etc/nginx/
+COPY config.inc.php /usr/share/webapp/phpmyadmin/
 
 RUN mkdir -p /usr/share/webapps/ \
     && mkdir -p /run/nginx \
@@ -53,8 +54,6 @@ RUN mkdir -p /usr/share/webapps/ \
     && mv phpMyAdmin-5.0.2-all-languages phpmyadmin \
     && chmod -R 777 /usr/share/webapps/ \
     && ln -s /usr/share/webapps/phpmyadmin/ /var/www/localhost/htdocs/phpmyadmin
-
-COPY config.sample.inc.php var/www/localhost/htdocs/phpmyadmin/
 
 EXPOSE 5000
 
