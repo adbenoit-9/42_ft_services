@@ -44,6 +44,7 @@ RUN apk update && \
 COPY start.sh .
 COPY ./nginx.conf /etc/nginx/
 COPY config.inc.php /usr/share/webapp/phpmyadmin/
+COPY www.conf /etc/php7/php-fpm.d/www.conf
 
 RUN mkdir -p /usr/share/webapps/ \
     && mkdir -p /run/nginx \

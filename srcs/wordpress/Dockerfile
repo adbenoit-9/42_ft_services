@@ -54,7 +54,7 @@ RUN mkdir -p $ROOT/ \
     && wget http://wordpress.org/latest.tar.gz \
     && tar -xzvf latest.tar.gz \
     && rm latest.tar.gz \
-    && chown -R nginx $ROOT/ 
+    && chown -R nginx $ROOT/wordpress
     # && sed -i "s/listen = 127.0.0.1:9000/listen = \/run\/php\/php-fpm7.sock/" /etc/php7/php-fpm.d/www.conf
     # && ln -s $ROOT/wordpress/ /var/www/localhost/htdocs/wordpress
 
