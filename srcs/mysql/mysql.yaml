@@ -31,7 +31,7 @@ spec:
       containers:
       - name: mysql
         image: mysql_im # tag that we gave to the docker image when we build it
-        imagePullPolicy: IfNotPresent # allow to pull a local docker image
+        imagePullPolicy: Never # allow to pull a local docker image
         livenessProbe:
           exec:
             command:

@@ -1,8 +1,3 @@
-
-use mysql;
-ALTER USER 'root'@'localhost' IDENTIFIED BY 'password';
-FLUSH PRIVILEGES;
-
 CREATE DATABASE IF NOT EXISTS ft_services;
 CREATE USER 'user42'@'%' IDENTIFIED BY 'user42';
 GRANT ALL PRIVILEGES ON *.* TO 'user42'@'%' WITH GRANT OPTION;

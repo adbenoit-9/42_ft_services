@@ -10,15 +10,15 @@
 #                                                                              #
 # **************************************************************************** #
 
-FROM alpine:3.7
+FROM alpine:latest
 
 ENV ROOT=/var/www/html
 
-COPY latest.tar.gz /tmp/
+RUN apk add vsftpd
 
-RUN tar -xzvf /tmp/latest.tar.gz -C $ROOT/ \
-    && chown -R www-data:www-data $ROOT/wordpress
+COPY start.sh .
+COPY vsftpd.conf etc/vsftpd/
 
-EXPOSE 5050
+EXPOSE 21
 
-ENTRYPOINT echo '\033[34mWorpress \033[0m[\033[32mOK\033[0m]'
+ENTRYPOINT sh start.sh
