@@ -57,6 +57,7 @@ start_project()
     start_service mysql
     start_service phpmyadmin
     start_service wordpress
+    start_service ftps
 }
 
 clean_service()
@@ -82,6 +83,7 @@ clean_all()
     clean_service mysql
     clean_service phpmyadmin
     clean_service wordpress
+    clean_service ftps
 }
 
 start_all()
@@ -91,6 +93,7 @@ start_all()
     start_service mysql
     start_service phpmyadmin
     start_service wordpress
+    start_service ftps
 }
 
 restart_it()

@@ -10,15 +10,17 @@
 #                                                                              #
 # **************************************************************************** #
 
-FROM alpine:3.7
+FROM alpine:latest
 
-ENV ROOT=/var/www/html
+# COPY grafana.db grafana/data/
 
-COPY latest.tar.gz /tmp/
+RUN apk add --no-cache libc6-compat
 
-RUN tar -xzvf /tmp/latest.tar.gz -C $ROOT/ \
-    && chown -R www-data:www-data $ROOT/wordpress
+ADD https://dl.grafana.com/oss/release/grafana-7.2.1.linux-amd64.tar.gz ./
 
-EXPOSE 5050
+RUN tar -zxvf grafana-7.2.1.linux-amd64.tar.gz \
+    && mv grafana-7.2.1 grafana
 
-ENTRYPOINT echo '\033[34mWorpress \033[0m[\033[32mOK\033[0m]'
+EXPOSE 3000
+
+ENTRYPOINT ./grafana/bin/grafana-server

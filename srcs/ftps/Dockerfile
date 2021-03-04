@@ -12,13 +12,15 @@
 
 FROM alpine:latest
 
-ENV ROOT=/var/www/html
-
-RUN apk add vsftpd
+RUN apk add vsftpd openssl
 
 COPY start.sh .
 COPY vsftpd.conf etc/vsftpd/
 
-EXPOSE 21
+RUN mkdir -p /etc/ssl/private \
+    && openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout \
+    /etc/ssl/private/vsftpd.key -out /etc/ssl/certs/vsftpd.crt -subj '/CN=192.168.49.2'
+
+EXPOSE 21 30000
 
 ENTRYPOINT sh start.sh

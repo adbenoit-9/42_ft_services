@@ -1,40 +1,38 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: ftps
+  name: telegraf
   annotations:
     metallb.universe.tf/allow-shared-ip: default
 spec:
   selector:
-    app: ftps
+    app: telegraf
+  type: ClusterIP
   ports:
-    - name: ftps
-      port: 21
-      targetPort: 21
-    - port: 30000
-      targetPort: 30000
-      name: ftps-data
-  type: LoadBalancer
+    - name: telegraf
+      port: 8185
+      targetPort: 8185
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: ftps-deployment
+  name: telegraf-deployment
   labels:
-    app: ftps
+    app: telegraf
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: ftps
+      app: telegraf
   template:
     metadata:
       labels:
-        app: ftps
+        app: telegraf
     spec:
       containers:
-      - name: ftps
-        image: ftps_im
+      - name: telegraf
+        image: telegraf_im
         imagePullPolicy: Never
         ports:
-        - containerPort: 21
+        - containerPort: 8185
+          name: telegra
