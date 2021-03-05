@@ -23,4 +23,4 @@ RUN tar -zxvf grafana-7.2.1.linux-amd64.tar.gz \
 
 EXPOSE 3000
 
-ENTRYPOINT ./grafana/bin/grafana-server
+ENTRYPOINT cd  /grafana/bin/ && ./grafana-server

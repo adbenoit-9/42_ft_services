@@ -45,14 +45,10 @@ start_project()
     echo '\033[1;33mminikube: \033[1;39mstarted [\033[1;32mOK\033[1;39m]\033[0m'
     minikube addons enable dashboard
     minikube addons enable metrics-server
-    # minikube addons enable metallb 
-    # if [ $? -ne 0 ]
-    # then
-        kubectl apply -f srcs/metallb/metallb.yaml
-    # fi
+    minikube addons enable metallb 
+    kubectl apply -f srcs/metallb/metallb.yaml
     kubectl apply -f srcs/metallb/metallb-configmap.yaml
     echo '\033[34mLoad Balancer \033[0m[\033[32mOK\033[0m]'
-    # sudo service nginx stop
     start_service nginx
     start_service mysql
     start_service phpmyadmin

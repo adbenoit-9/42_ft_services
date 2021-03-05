@@ -2,8 +2,6 @@ apiVersion: v1
 kind: Service
 metadata:
   name: telegraf
-  annotations:
-    metallb.universe.tf/allow-shared-ip: default
 spec:
   selector:
     app: telegraf
@@ -29,10 +27,45 @@ spec:
       labels:
         app: telegraf
     spec:
+      serviceAccountName: telegraf
       containers:
       - name: telegraf
         image: telegraf_im
         imagePullPolicy: Never
         ports:
         - containerPort: 8185
-          name: telegra
+          name: telegraf
+        livenessProbe:
+          exec:
+            command:
+              - pgrep
+              - telegraf
+          initialDelaySeconds: 1
+          periodSeconds: 1
+        volumeMounts:
+        - name: telegraf-endpoint
+          mountPath: "/var/run/docker.sock"
+      volumes:
+      - name: telegraf-endpoint
+        hostPath:
+          path: /var/run/docker.sock
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: telegraf
+  labels:
+    app: telegraf
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: telegraf
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: cluster-admin
+subjects:
+- kind: ServiceAccount
+  name: telegraf
+  namespace: default
