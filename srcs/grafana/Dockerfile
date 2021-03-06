@@ -12,14 +12,14 @@
 
 FROM alpine:latest
 
-# COPY grafana.db grafana/data/
+# COPY grafana.db /grafana/data/grafana.db
 
 RUN apk add --no-cache libc6-compat
 
 ADD https://dl.grafana.com/oss/release/grafana-7.2.1.linux-amd64.tar.gz ./
 
 RUN tar -zxvf grafana-7.2.1.linux-amd64.tar.gz \
-    && mv grafana-7.2.1 grafana
+    && mv grafana-7.2.1 grafana 
 
 EXPOSE 3000
 

@@ -54,6 +54,9 @@ start_project()
     start_service phpmyadmin
     start_service wordpress
     start_service ftps
+    start_service influxdb
+    start_service telegraf
+    start_service grafana
 }
 
 clean_service()
@@ -80,6 +83,9 @@ clean_all()
     clean_service phpmyadmin
     clean_service wordpress
     clean_service ftps
+    clean_service influxdb
+    clean_service telegraf
+    clean_service grafana
 }
 
 start_all()
@@ -90,6 +96,9 @@ start_all()
     start_service phpmyadmin
     start_service wordpress
     start_service ftps
+    start_service influxdb
+    start_service telegraf
+    start_service grafana
 }
 
 restart_it()
