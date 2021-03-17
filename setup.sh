@@ -211,7 +211,7 @@ restart_pods()
     kubectl delete --all pod > /dev/null
     kill $pro_pid
     wait $pro_pid
-    echo "\r\033[33;1mpods: \033[0;1mdeleted            \033[0m\n"
+    echo "\r🗑️  \033[33;1mpods: \033[0;1mdeleted            \033[0m\n"
     echo '\033[0m🌟 \033[1;33mpods: \033[1;39mrestarted [\033[1;32mOK\033[1;39m]\033[0m\n'
     kubectl get pod
 }
