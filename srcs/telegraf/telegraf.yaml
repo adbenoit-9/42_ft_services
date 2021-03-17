@@ -38,10 +38,11 @@ spec:
         livenessProbe:
           exec:
             command:
-              - pgrep
-              - telegraf
-          initialDelaySeconds: 1
-          periodSeconds: 1
+            - /bin/ash
+            - -c
+            - 'pgrep telegraf'
+          initialDelaySeconds: 3
+          periodSeconds: 3
         volumeMounts:
         - name: telegraf-endpoint
           mountPath: "/var/run/docker.sock"

@@ -10,4 +10,6 @@ RUN tar xf telegraf-1.14.0-static_linux_amd64.tar.gz \
     && mv telegraf /etc/telegraf \
 	&& rm -rf *.tar.gz*
 
+RUN apk add libc6-compat
+
 ENTRYPOINT telegraf
