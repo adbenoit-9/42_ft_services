@@ -22,8 +22,7 @@ RUN apk update && \
     php7-mysqli \
     php7-session \
     php7-curl \
-    php7-mbstring \
-    openssl
+    php7-mbstring 
 
 COPY start.sh .
 COPY ./nginx.conf /etc/nginx/
