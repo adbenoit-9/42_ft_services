@@ -77,8 +77,8 @@ start_all()
 {
     kubectl apply -f srcs/metallb/metallb-configmap.yaml > /dev/null 2> error.log
     echo '\033[34;1mLoad Balancer \033[0;1m[\033[32m ✔ \033[0;1m]\033[0m\n'
-    start_service telegraf
     start_service influxdb
+    start_service telegraf
     start_service nginx
     start_service mysql
     start_service phpmyadmin
