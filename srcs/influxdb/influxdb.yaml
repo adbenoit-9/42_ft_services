@@ -42,12 +42,12 @@ spec:
     spec:
       containers:
       - name: influxdb
-        image: influxdb_im # tag that we gave to the docker image when we build it
-        imagePullPolicy: Never # allow to pull a local docker image
+        image: influxdb_im
+        imagePullPolicy: Never
         ports:
         - containerPort: 8086
         volumeMounts:
-        - name: influxdb-persistent-storage # using volume to save datas if pod crashes
+        - name: influxdb-persistent-storage
           mountPath: /var/lib/influxdb
       volumes:
       - name: influxdb-persistent-storage

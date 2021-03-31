@@ -1,5 +1,5 @@
 
-apiVersion: v1 # creating a volume for mysql
+apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: mysql-pv-claim
@@ -30,8 +30,8 @@ spec:
     spec:
       containers:
       - name: mysql
-        image: mysql_im # tag that we gave to the docker image when we build it
-        imagePullPolicy: Never # allow to pull a local docker image
+        image: mysql_im
+        imagePullPolicy: Never
         livenessProbe:
           exec:
             command:
@@ -43,7 +43,7 @@ spec:
         ports:
         - containerPort: 3306
         volumeMounts:
-        - name: mysql-persistent-storage # using volume to save datas if pod crashes
+        - name: mysql-persistent-storage
           mountPath: /var/lib/mysql
       volumes:
       - name: mysql-persistent-storage

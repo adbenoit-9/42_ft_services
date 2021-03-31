@@ -15,18 +15,6 @@
 # min = 5
 # sec = 15
 
-# time_progress()
-# {
-#     if [ sec -eq 0]
-#     then
-#         if [min -ne 0]
-#             --min
-#             sec=60
-#         fi
-#     else
-#         --sec
-#     fi
-# }
 progress_anim()
 {
     echo -n "     "
@@ -43,6 +31,35 @@ progress_anim()
         sleep 0.5
         # time_progress
     done
+}
+
+install_minikube()
+{
+    mk=`minikube version | grep "v1.18.1"`
+    status=$?
+    if [ $status -eq 127 ]
+    then
+        echo "\033[31;1m⚠️ Minikube not found\033[0m"
+    elif [ -z "$mk" ]
+    then
+        echo "\033[31;1m⚠️ Minikube wrong version\033[0m"
+    else
+        return 0
+    fi
+    echo -n "⏰ \033[1;33mminikube: \033[1;39minstalling ...\033[0m"
+    curl -Lo minikube https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64 minikube > /dev/null 2> /dev/null\
+    && chmod +x minikube > /dev/null 2> /dev/null
+    sudo mkdir -p /usr/local/bin/ > /dev/null 2> /dev/null
+    sudo install minikube /usr/local/bin/ > /dev/null 2> /dev/null
+    curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl > /dev/null 2> /dev/null
+    chmod +x ./kubectl > /dev/null 2> /dev/null
+    sudo mv ./kubectl /usr/local/bin/kubectl > /dev/null 2> /dev/null
+    if [ $? -ne 0 ]
+    then
+        echo '\033[0m💀 \033[1;33mminikube: \033[1;39minstallation [\033[1;31mKO\033[1;39m]\033[0m  \n'
+        exit 1
+    fi
+    echo '\033[0m🌟 \033[1;33mminikube: \033[1;39minstallation [\033[1;32mOK\033[1;39m]\033[0m  \n'
 }
 
 start_service()
@@ -103,9 +120,9 @@ start_project()
         exit 1
     fi
     echo '\r\033[0m🌟 \033[1;33mminikube: \033[1;39mstarted [\033[1;32mOK\033[1;39m]\033[0m  \n'
-    minikube addons enable dashboard > /dev/null 2> error.log
-    minikube addons enable metrics-server > /dev/null 2> error.log
-    minikube addons enable metallb > /dev/null 2> error.log
+    minikube addons enable dashboard > /dev/null 2> /dev/null
+    minikube addons enable metrics-server > /dev/null 2> /dev/null
+    minikube addons enable metallb > /dev/null 2> /dev/null
     kubectl apply -f srcs/metallb/metallb.yaml > /dev/null 2> error.log
     start_all
     echo "______________________________________"
@@ -114,9 +131,13 @@ start_project()
     echo "|______________|__________|__________|"
     echo "|  phpmyadmin  |  user42  |  user42  |"
     echo "|______________|__________|__________|"
+    echo "|   wordpress  |  user42  |  user42  |"
+    echo "|______________|__________|__________|"
+    echo "|     ftps     |  user42  |  user42  |"
+    echo "|______________|__________|__________|"
     echo "|   grafana    |  admin   | password |"
     echo "|______________|__________|__________|\n"
-    echo '\n🔥 \033[1;32mft_services is running\033[0m 🔥'
+    echo '\n\033[1;33m🔥 \033[1;32mft_services is running\033[1;33m 🔥\033[0m'
 }
 
 clean_service()
@@ -131,8 +152,6 @@ clean_service()
 clean_project()
 {
     minikube delete > /dev/null 2> /dev/null
-    # docker container stop $(docker container ls -aq) > /dev/null
-    # docker container rm $(docker container ls -aq) > /dev/null
     docker rmi -f $(docker image ls -a -q) > /dev/null 2> /dev/null
     echo "🗑️  \033[33;1mminikube \033[0;1mdeleted\033[0m"
 }
@@ -153,7 +172,6 @@ clean_all()
 
 restart_it()
 {
-    # eval $(minikube docker-env)
     if [ $1 = "minikube" ]
         then
         clean_project
@@ -197,7 +215,7 @@ start_it()
         start_project
     elif [ -z "$1" ]
         then
-        echo "⚠️ tart: $1: no such service"
+        echo "⚠️ start: $1: no such service"
     else
         start_service $1
     fi
@@ -220,7 +238,12 @@ echo "\033[34m"
 cat ft_services.txt
 echo "\033[0m"
 
-if [ $1 = "restart" ]
+if [ $# -eq 0 ]
+    then
+    echo "\033[1;33mFt_services starting ... \033[0m\n"
+    install_minikube
+    restart_it minikube
+elif [ $1 = "restart" ]
     then
     echo "\033[1;33m$2 restarting ... \033[0m"
     if [ $2 = "pods" ]
