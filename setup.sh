@@ -68,10 +68,10 @@ start_service()
     echo -n "\033[36;1m$1 \033[0;1m"
     progress_anim & pro_pid=$!
     echo -n "\033[0m"
-    docker build -t $1_im srcs/$1 > /dev/null 2> error.log
+    docker build -t $1_im srcs/$1 > /dev/null 2>> error.log
     if [ $? -eq 0 ]
     then
-        kubectl apply -f srcs/$1/$1.yaml > /dev/null 2> error.log
+        kubectl apply -f srcs/$1/$1.yaml > /dev/null 2>> error.log
         status=$?
         kill $pro_pid
         wait $pro_pid
@@ -92,7 +92,7 @@ start_service()
 
 start_all()
 {
-    kubectl apply -f srcs/metallb/metallb-configmap.yaml > /dev/null 2> error.log
+    kubectl apply -f srcs/metallb/metallb-configmap.yaml > /dev/null 2>> error.log
     echo '\033[34;1mLoad Balancer \033[0;1m[\033[32m ✔ \033[0;1m]\033[0m\n'
     start_service influxdb
     start_service telegraf
@@ -109,7 +109,7 @@ start_project()
     # sudo usermod -aG docker user42; newgrp docker
     echo -n "⏰ \033[1;33mminikube: \033[1;39mstarting "
     progress_anim & pro_pid=$!
-    minikube start --vm-driver=docker > /dev/null 2> error.log
+    minikube start --vm-driver=docker > /dev/null 2>> error.log
     status=$?
     kill $pro_pid
     wait $pro_pid
@@ -123,7 +123,7 @@ start_project()
     minikube addons enable dashboard > /dev/null 2> /dev/null
     minikube addons enable metrics-server > /dev/null 2> /dev/null
     minikube addons enable metallb > /dev/null 2> /dev/null
-    kubectl apply -f srcs/metallb/metallb.yaml > /dev/null 2> error.log
+    kubectl apply -f srcs/metallb/metallb.yaml > /dev/null 2>> error.log
     start_all
     echo "______________________________________"
     echo "|              |          |          |"
@@ -158,7 +158,7 @@ clean_project()
 
 clean_all()
 {
-    kubectl delete -f srcs/metallb/metallb-configmap.yaml > /dev/null 2> error.log
+    kubectl delete -f srcs/metallb/metallb-configmap.yaml > /dev/null 2>> error.log
     echo "\033[36;1mLoad Balancer \033[0;1mdeleted\033[0m"
     clean_service nginx
     clean_service mysql
@@ -237,6 +237,8 @@ restart_pods()
 echo "\033[34m"
 cat ft_services.txt
 echo "\033[0m"
+
+echo "" > error.log
 
 if [ $# -eq 0 ]
     then
