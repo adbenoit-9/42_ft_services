@@ -16,6 +16,6 @@ $ cd 42_ft_services
 $ sh setup.sh
 ```
 
-## PREVIEW
+## Preview
 
 ![Example](screenshot.png)
