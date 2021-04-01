@@ -41,7 +41,7 @@ spec:
             - /bin/ash
             - -c
             - 'pgrep telegraf'
-          initialDelaySeconds: 3
+          initialDelaySeconds: 7
           periodSeconds: 3
         volumeMounts:
         - name: telegraf-endpoint

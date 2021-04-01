@@ -38,7 +38,7 @@ spec:
             - /bin/ash
             - -c
             - 'pgrep mysqld'
-          initialDelaySeconds: 10
+          initialDelaySeconds: 15
           periodSeconds: 3
         ports:
         - containerPort: 3306
